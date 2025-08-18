@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Product;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 
 trait ShopifyOrdersTrait
@@ -10,16 +11,16 @@ trait ShopifyOrdersTrait
     public function fetchFormattedOrders($startDate, $endDate): array
     {
         $ordersData = [];
-
+        $startDateUtc = Carbon::parse($startDate, 'Asia/Kolkata')->startOfDay()->setTimezone('UTC')->toIso8601String();
+        $endDateUtc   = Carbon::parse($endDate, 'Asia/Kolkata')->endOfDay()->setTimezone('UTC')->toIso8601String();
         $admin_shop_url = env('SHOP_URL');
         $token = env('SHOPIFY_ACCESS_TOKEN');
-
         $response = Http::withHeaders([
             'X-Shopify-Access-Token' => $token,
         ])->withoutVerifying()->get("https://$admin_shop_url/admin/api/2025-01/orders.json", [
             'status'         => 'any',
-            'created_at_min' => $startDate . 'T00:00:00Z',
-            'created_at_max' => $endDate . 'T23:59:59Z',
+            'created_at_min' => $startDateUtc,
+            'created_at_max' => $endDateUtc,
             'limit'          => 250,
         ]);
 
@@ -56,7 +57,7 @@ trait ShopifyOrdersTrait
                     'total_price'        => $order['total_price'],
                     'fulfillment_status' => $order['fulfillment_status'],
                     'quantities'         => implode(", ", $quantities),
-                    'created_at'         => $order['created_at'],
+//                   'created_at'         => $order['created_at'],
                 ];
             }
         }
