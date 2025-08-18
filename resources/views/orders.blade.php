@@ -27,6 +27,10 @@
                 </button>
             </form>
         </div>
+            <a href="{{ route('products.fetch') }}"
+               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-4 inline-block">
+                Sync Products for cost per item
+            </a>
 
         @if(isset($orders) && count($orders) > 0)
             <div class="bg-white rounded shadow p-4 mt-4">
@@ -72,7 +76,6 @@
         @endif
 
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         flatpickr("#dateRange", {
