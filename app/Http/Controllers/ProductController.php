@@ -26,6 +26,7 @@ class ProductController extends Controller
         if ($response->successful()) {
             $shopifyProducts = $response->json()['products'];
 
+
             foreach ($shopifyProducts as $product) {
                 $variantsInventoryIds = [];
 

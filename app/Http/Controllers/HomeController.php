@@ -19,6 +19,7 @@ class HomeController extends Controller
 
         $orders = $this->fetchFormattedOrders($startDate, $endDate); // using your trait
 
+
         return view('orders', compact('orders', 'startDate', 'endDate'));
     }
 

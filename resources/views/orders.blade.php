@@ -4,7 +4,7 @@
 
         <div class="flex flex-wrap gap-4 mb-6">
             <!-- Date Range & Fetch -->
-            <form id="orderForm" action="{{ url('/orders') }}" method="GET"
+            <form id="orderForm" action="{{ url('/') }}" method="GET"
                   class="flex flex-wrap items-center gap-4 bg-white p-4 rounded shadow">
                 <label class="font-semibold">Date Range:</label>
                 <input type="text" id="dateRange" class="border border-gray-300 rounded px-3 py-2 w-64"
